@@ -1,0 +1,2 @@
+MEMORY GAME:
+    - There is a bug that sometimes after a game the best time is not updated and returns as the total seconds of the difficulty

@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "react": "^16.8.6",
+    "react-countdown-clock": "^2.6.0",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "remove-accents": "^0.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
