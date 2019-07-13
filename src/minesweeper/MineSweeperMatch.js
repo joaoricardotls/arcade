@@ -14,6 +14,8 @@ export function MineSweeperMatch(props) {
 
     const [minesObject, setMinesObject] = useState({});
 
+    const [minesIndexes, setMinesIndexes] = useState([]);
+
     const [emptySpacesIndexes, setEmptySpacesIndexes] = useState([]);
 
     const [minesFound, setMinesFound] = useState(0);
@@ -39,32 +41,37 @@ export function MineSweeperMatch(props) {
     }, []);
 
 
+
     useEffect(() => {
-        let found = 0,
-            trueMinesFound = 0;
-        for (let c = 0; c < Object.keys(minesObject).length; c++) {
-            for (let r = 0; r < Object.keys(minesObject[c]).length; r++) {
-                if (minesObject[c][r].hidden && minesObject[c][r].status === 1) {
-                    found += 1;
-                    if (minesObject[c][r].mine) {
-                        trueMinesFound += 1;
-                    };
-                };
+        let minesFound = 0;
+        for (let i = 0; i < minesIndexes.length; i++) {
+            let [col, row] = [ ...minesIndexes[i] ];
+            if (minesObject[col][row].status === 1) {
+                minesFound += 1;
             };
         };
-        if (found === trueMinesFound && found === props.mines) {
-            console.log("All Mines Found");
-        } else if (found > trueMinesFound && found > props.mines) {
-            console.log("You found more mines than there actually are");
+        if (minesFound === props.mines) {
+            let newMines = { ...minesObject };
+            for (let c = 0; c < Object.keys(newMines).length; c++) {
+                for (let r = 0; r < Object.keys(newMines[c]).length; r++) {
+                    newMines[c][r].status = 3;
+                    newMines[c][r].hidden = false;
+                };
+            };
+            setMinesObject(newMines);
+            setActionsBlocked(true);
+            setTimeout(() => {
+                setEndGame(true);
+            }, 2000);
         };
-        setMinesFound(found);
-    }, [minesObject])
+    }, [minesObject]);
 
 
 
     const generateMatch = (index) => {
         let [c, r] = [ ...index ],
-            newObj = { ...minesObject };
+            newObj = { ...minesObject },
+            minesIndexList = [];
         c = parseInt(c);
         r = parseInt(r);
         let neighboursIndexes = [
@@ -88,12 +95,13 @@ export function MineSweeperMatch(props) {
                     });
                     if (!block && !newObj[col][row].mine) {
                         newObj[col][row].mine = true;
+                        minesIndexList.push([col, row]);
                         break;
                     };
                 };
             };
         };
-        let emptySpaces = [];
+        let emptySpacesList = [];
         for (let y = 0; y < Object.keys(newObj).length; y++ ) {
             for (let t = 0; t < Object.keys(newObj[y]).length; t++) {
                 let neighbourhood = [],
@@ -112,12 +120,12 @@ export function MineSweeperMatch(props) {
                     };
                 });
                 if (newNeighbours === 0 && !newObj[y][t].mine) {
-                    emptySpaces.push([y, t]);
+                    emptySpacesList.push([y, t]);
                 };
                 newObj[y][t].neighbourMines = newNeighbours;
             };
         };
-        return [newObj, emptySpaces];
+        return [newObj, minesIndexList, emptySpacesList];
     };
 
 
@@ -216,16 +224,18 @@ export function MineSweeperMatch(props) {
         if (!actionsBlocked) {
             let [col, row] = [...index];
             if (firstClick) {
-                let [newMines, emptySpaces] = generateMatch(index);
+                let [newMines, minesIndexList, emptySpacesList] = generateMatch(index);
                 newMines[col][row].hidden = false;
-                newMines = clearEmptySpaces(newMines, emptySpaces);
+                newMines = clearEmptySpaces(newMines, emptySpacesList);
                 setMinesObject(newMines);
-                setEmptySpacesIndexes(emptySpaces);
+                setMinesIndexes(minesIndexList);
+                setEmptySpacesIndexes(emptySpacesList);
                 setFirstClick(false);
             } else {
                 let newMines = { ...minesObject };
                 if (newMines[col][row].status === 0 && newMines[col][row].hidden) {
                     newMines[col][row].hidden = false;
+                    // DEFEAT
                     if (newMines[col][row].mine) {
                         for (let c = 0; c < Object.keys(newMines).length; c++) {
                             for (let r = 0; r < Object.keys(newMines[c]).length; r++) {
@@ -248,17 +258,24 @@ export function MineSweeperMatch(props) {
 
     const handleRightClick = (index) => {
         if (!actionsBlocked && !firstClick) {
-            let [col, row] = [...index],
-                newMines = {...minesObject};
+            let [col, row] = [ ...index ],
+                newMines = { ...minesObject };
             if (newMines[col][row].hidden) {
-                let newStatus = 0;
                 switch (newMines[col][row].status) {
-                    case 0: newStatus = 1; break;
-                    case 1: newStatus = 2; break;
-                    case 2: newStatus = 0; break;
-                    default: break;
+                    case 0:
+                        newMines[col][row].status = 1;
+                        setMinesFound(found => found + 1);
+                        break;
+                    case 1:
+                        newMines[col][row].status = 2;
+                        setMinesFound(found => found - 1);
+                        break;
+                    case 2:
+                        newMines[col][row].status = 0;
+                        break;
+                    default:
+                        break;
                 };
-                newMines[col][row].status = newStatus;
                 setMinesObject(newMines);
             };
         };

@@ -7,13 +7,6 @@ export function MineSweeper(props) {
 
     const [difficulty, setDifficulty] = useState('normal');
 
-    const [customObject, setCustomObject] = useState({
-        difficulty: 'custom',
-        mines: 60,
-        columns: 20,
-        rows: 20
-    });
-
     const [difficultyObject, setDifficultyObject] = useState({});
 
 
@@ -26,27 +19,18 @@ export function MineSweeper(props) {
         let newObject = {};
         switch (difficulty) {
             case 'easy':
-                newObject = {difficulty: 'easy', mines: 15, columns: 10, rows: 10};
+                newObject = {difficulty: 'easy', mines: 5, columns: 10, rows: 10};
                 break;
             case 'hard':
                 newObject = {difficulty: 'hard', mines: 100, columns: 25, rows: 25};
-                break;
-            case 'custom':
-                newObject = {...customObject};
                 break;
             default:
                 newObject = {difficulty: 'normal', mines: 60, columns: 20, rows: 20};
                 break;
         };
         setDifficultyObject(newObject);
-    }, [difficulty, customObject])
+    }, [difficulty])
 
-    
-
-
-    const getMaxMines = () => {
-        return Math.floor( ((customObject.columns * customObject.rows) / 10) * 6 );
-    };
     
 
 
@@ -57,34 +41,6 @@ export function MineSweeper(props) {
         setDifficulty(event.target.value);
     };
 
-    const handleCustomMinesChange = (event) => {
-        event.preventDefault();
-        let newObject = {...customObject};
-        newObject.mines = event.target.value;
-        setCustomObject(newObject);
-    };
-
-    const handleCustomColumnsChange = (event) => {
-        event.preventDefault();
-        let newObject = {...customObject};
-        newObject.columns = event.target.value;
-        let maxMines = Math.floor(((newObject.columns * newObject.rows) / 10) * 6);
-        if (newObject.mines > maxMines) {
-            newObject.mines = maxMines;
-        };
-        setCustomObject(newObject);
-    };
-
-    ;const handleCustomRowsChange = (event) => {
-        event.preventDefault();
-        let newObject = {...customObject};
-        newObject.rows = event.target.value;
-        let maxMines = Math.floor(((newObject.columns * newObject.rows) / 10) * 6);
-        if (newObject.mines > maxMines) {
-            newObject.mines = maxMines;
-        };
-        setCustomObject(newObject);
-    };
 
     const handleStart = (event) => {
         event.preventDefault();
@@ -115,35 +71,7 @@ export function MineSweeper(props) {
                                 <option value={'easy'}>Easy</option>
                                 <option value={'normal'}>Normal</option>
                                 <option value={'hard'}>Hard</option>
-                                <option value={'custom'}>Custom</option>
                         </select>
-                        {
-                            difficulty === 'custom' &&
-
-                            <div>
-                                <div>
-                                    <label>Set Mines</label>
-                                    <input type="range" max={ getMaxMines() } min={5} step={1}
-                                           value={ customObject.mines }
-                                           onChange={ (e) => handleCustomMinesChange(e) }/>
-                                    <div>{ customObject.mines }</div>
-                                </div>
-                                <div>
-                                    <label>Set Columns</label>
-                                    <input type="range" max={50} min={10} estep={1}
-                                           value={ customObject.columns }
-                                           onChange={ (e) => handleCustomColumnsChange(e) }/>
-                                    <div>{ customObject.columns }</div>
-                                </div>
-                                <div>
-                                    <label>Set Rows</label>
-                                    <input type="range" max={50} min={10} step={1}
-                                           value={ customObject.rows }
-                                           onChange={ (e) => handleCustomRowsChange(e) }/>
-                                    <div>{ customObject.rows }</div>
-                                </div>
-                            </div>
-                        }
                     </div>
 
                     <div>

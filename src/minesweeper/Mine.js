@@ -23,12 +23,16 @@ export function Mine(props) {
         if (props.hidden) {
             newStyle += " minesweeper__mine--hidden";
             if (props.status === 1) {
-                newStyle += " minesweeper__mine--flag"
+                newStyle += " minesweeper__mine--flag";
             } else if (props.status === 2) {
-                newStyle += " minesweeper__mine--question"
+                newStyle += " minesweeper__mine--question";
             };
         } else if (props.mine) {
-            newStyle += " minesweeper__mine--exploded";
+            if (props.status === 3) {
+                newStyle += " minesweeper__mine--flag";
+            } else {
+                newStyle += " minesweeper__mine--exploded";
+            };
         } else if (props.neighbourMines === 0) {
             newStyle += " minesweeper__mine--empty"
         } else {
