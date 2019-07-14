@@ -4,19 +4,19 @@ export function Mine(props) {
 
     const handleLeftClick = (e) => {
         e.preventDefault();
-        props.leftClick(props.index);
+        props.leftClick(e, props.index);
     };
 
     const handleRightClick = (e) => {
         e.preventDefault();
         props.rightClick(props.index);
-    }
+    };
 
     const content = () => {
         if (props.mine) return ""
         else if (props.neighbourMines === 0) return ""
         else return props.neighbourMines;
-    }
+    };
 
     const getCSSClasses = () => {
         let newStyle = "minesweeper__mine";

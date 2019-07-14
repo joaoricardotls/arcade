@@ -220,9 +220,11 @@ export function MineSweeperMatch(props) {
         setHelpScreen(value => !value);
     };
 
-    const handleLeftClick = (index) => {
+    const handleLeftClick = (event, index) => {
         if (!actionsBlocked) {
             let [col, row] = [...index];
+            col = parseInt(col);
+            row = parseInt(row);
             if (firstClick) {
                 let [newMines, minesIndexList, emptySpacesList] = generateMatch(index);
                 newMines[col][row].hidden = false;
@@ -233,7 +235,7 @@ export function MineSweeperMatch(props) {
                 setFirstClick(false);
             } else {
                 let newMines = { ...minesObject };
-                if (newMines[col][row].status === 0 && newMines[col][row].hidden) {
+                if (newMines[col][row].status === 0 && newMines[col][row].hidden && !event.ctrlKey) {
                     newMines[col][row].hidden = false;
                     // DEFEAT
                     if (newMines[col][row].mine) {
@@ -251,6 +253,56 @@ export function MineSweeperMatch(props) {
                         newMines = clearEmptySpaces(newMines, emptySpacesIndexes);
                     };
                     setMinesObject(newMines);
+                } else if (!newMines[col][row].hidden && event.ctrlKey) {
+                    // If ctrl + click, searches for the neighbours fields if there are as many saved mines (status 1) as neighoburMines properties, if so the surrounding fields will become visible (no matter if they are correct guesses or not, the game trusts what you enter and will not give 'hints', as if the ctrl+click not responding could be perceived as a wrong save, instead if you have wrongly saved 2 mines and ctrl+click on a field with props 2, you will lose the game for having "clicked", by extension of the action, on a mine)
+                    let neighboursList = [
+                        [col - 1, row - 1],
+                        [col, row - 1],
+                        [col + 1, row - 1],
+                        [col + 1, row],
+                        [col + 1, row + 1],
+                        [col, row + 1],
+                        [col - 1, row + 1],
+                        [col - 1, row]
+                    ];
+                    let flagMines = 0;
+                    neighboursList.forEach( index => {
+                        let [c, r] = [ ...index ];
+                        try {
+                            if (newMines[c][r].status === 1) {
+                                flagMines += 1;
+                            };
+                        } catch {};
+                    });
+                    if (flagMines === newMines[col][row].neighbourMines) {
+                        let mineBlown = false;
+                        neighboursList.forEach(index => {
+                            let [c, r] = [...index];
+                            try {
+                                if (newMines[c][r].status !== 1) {
+                                    newMines[c][r].status = 0;
+                                    newMines[c][r].hidden = false;
+                                    if (newMines[c][r].mine) {
+                                        mineBlown = true;
+                                    };
+                                };
+                            } catch {};
+                        });
+                        newMines = clearEmptySpaces(newMines, emptySpacesIndexes);
+                        if (mineBlown) {
+                            for (let c = 0; c < Object.keys(newMines).length; c++) {
+                                for (let r = 0; r < Object.keys(newMines[c]).length; r++) {
+                                    newMines[c][r].hidden = false;
+                                    newMines[c][r].status = 0;
+                                };
+                            };
+                            setActionsBlocked(true);
+                            setTimeout(() => {
+                                setEndGame(true);
+                            }, 2000);
+                        };
+                        setMinesObject(newMines);
+                    };
                 };
             };
         };
@@ -301,27 +353,30 @@ export function MineSweeperMatch(props) {
 
         return (<>
 
-            {
-                helpScreen &&
-                <div className="minesweeper__helpscreen">
-                    <h2 className="minesweeper__title">
-                        CONTROLS
-                    </h2>
-                    <div className="minesweeper__subtitle">
-                        Left Mouse Click: Reveal mine field
-                    </div>
-                    <div className="minesweeper__subtitle">
-                        Left Mouse Click: Toggles flag or question mark on mine field
-                    </div>
-                    <button className="minesweeper__button"
-                            onClick={ () => handleHelpScreen() }>
-                        Return
-                    </button>
-                </div>
-            }
+            
 
             <div className="minesweeper">
-
+                {
+                    helpScreen &&
+                    <div className="minesweeper__helpscreen">
+                        <h2 className="minesweeper__title">
+                            CONTROLS
+                        </h2>
+                        <div className="minesweeper__subtitle">
+                            Left Mouse Click: Reveal mine field
+                        </div>
+                        <div className="minesweeper__subtitle">
+                            CTRL Key + Left Mouse Click: Reveal surrounding mine fields if all neighbouring mines are saved
+                        </div>
+                        <div className="minesweeper__subtitle">
+                            Left Mouse Click: Toggles flag or question mark on mine field
+                        </div>
+                        <button className="minesweeper__button"
+                                onClick={ () => handleHelpScreen() }>
+                            Return
+                        </button>
+                    </div>
+                }
                 <nav className="minesweeper__navigation">
                     <div className="minesweeper__navitem">
                         <h4>MINES FOUND:</h4>

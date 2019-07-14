@@ -3,9 +3,25 @@ import { CheckersMatch } from "./CheckersMatch";
 
 export function Checkers() {
 
-    return (<>
-        <div className="checkers">
+    const [startGame, setStartGame] = useState(false);
 
-        </div>
-    </>)
+    const handleStart = (e) => {
+        e.preventDefault();
+        setStartGame(true);
+    };
+
+    if (startGame) {
+
+        return <CheckersMatch/>
+
+    } else {
+
+        return (<>
+            <div className="checkers">
+
+                <button onClick={ (e) => handleStart(e) }>START!</button>
+
+            </div>
+        </>);
+    };
 };
