@@ -114,6 +114,34 @@
                 z-index: 10;
             }
         }
+
+        &--mandatory {
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(233, 43, 43, 0.739);
+                z-index: 10;
+            }
+        }
+
+        &--to-be-captured {
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(240, 129, 255, 0.739);
+                z-index: 10;
+            }
+        }
     }
 
     &__piece {
