@@ -222,10 +222,10 @@ export function MemoryGameMatch(props) {
     // If game has not ended
     if (!gameEnd.end) {
 
-        return (<>
-            <div className="memory-game">
+        return (
+            <div className="game">
 
-                <div className="memory-game__cards">
+                <div className="memory-game__cards-container">
                 {
                     cards.map( (card) => 
                         <MemoryGameCard key={ card.uniqueId }
@@ -239,13 +239,13 @@ export function MemoryGameMatch(props) {
                            endTimer={ endGame }
                            returnTime={ handleTimeValueReturn }/>
             </div>
-        </>);
+        );
 
     // If game has ended
     } else {
 
-        return (<>
-            <div className="memory-game">
+        return (
+            <div className="game">
 
                 {
                     gameEnd.matchTime !== props.difficulty &&
@@ -269,7 +269,7 @@ export function MemoryGameMatch(props) {
                 </button>
 
             </div>
-        </>);
+        );
     };
 };
 

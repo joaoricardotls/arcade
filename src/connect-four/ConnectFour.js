@@ -6,23 +6,23 @@ export function ConnectFour(props) {
     const [newGame, setNewGame] = useState({
         start: false,
         players: {
-            player1: undefined,
-            player2: undefined
+            player1: "",
+            player2: ""
         }
     });
 
-    const [player1Name, setPlayer1Name] = useState("")
+    const [player1InputValue, setPlayer1InputValue] = useState("")
 
-    const [player2Name, setPlayer2Name] = useState("")
+    const [player2InputValue, setPlayer2InputValue] = useState("")
 
     const handlePlayer1NameChange = (event) => {
         event.preventDefault();
-        setPlayer1Name(event.target.value);
+        setPlayer1InputValue(event.target.value);
     };
 
     const handlePlayer2NameChange = (event) => {
         event.preventDefault();
-        setPlayer2Name(event.target.value);
+        setPlayer2InputValue(event.target.value);
     };
 
     const handleSubmit = (event) => {
@@ -30,20 +30,20 @@ export function ConnectFour(props) {
         setNewGame({
             start: true,
             players: {
-                player1: player1Name,
-                player2: player2Name
+                player1: player1InputValue === "" ? "Player 1" : player1InputValue,
+                player2: player2InputValue === "" ? "Player 2" : player2InputValue
             }
         });
     };
 
     const handleRestart = () => {
-        setPlayer1Name("");
-        setPlayer1Name("");
+        setPlayer1InputValue("");
+        setPlayer2InputValue("");
         setNewGame({
             start: false,
             players: {
-                player1: undefined,
-                player2: undefined
+                player1: "",
+                player2: ""
             }
         });
     };

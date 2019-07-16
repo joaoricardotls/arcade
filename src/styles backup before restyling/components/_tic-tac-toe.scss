@@ -1,0 +1,98 @@
+.ttt {
+    background-color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+
+    &__title {
+        margin-bottom: 2rem;
+    }
+
+    &__box {
+        width: 80%;
+        height: 80%;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+        background-image: url("../images/tictactoe.png");
+        background-repeat: round;
+        position: relative;
+    }
+
+    &__endgame {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column nowrap;
+        background-color: rgba(white, 0.7);
+        z-index: 5;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: 600;
+        color: rgb(6, 10, 6);
+
+        &--title,
+        &--victory {
+            letter-spacing: -3px;
+        }
+
+        &--title {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+        }
+
+        &--victory {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: rgb(12, 102, 12);
+            text-decoration: underline;
+        }
+
+        &--score {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+
+            &:last-of-type {
+                margin-bottom: 5rem;
+            }
+
+            &--title {
+                text-decoration: underline;
+            }
+        }
+
+        &--button {
+            max-width: 15rem;
+        }
+    }
+
+    &__square {
+        flex: 0 0 calc(33% - 6rem);
+        height: calc(33% - 6rem);
+        margin: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+    }
+
+    &__icon {
+        font-size: 500%;
+
+        &--red {
+            color: red;
+        }
+
+        &--blue {
+            color: blue;
+        }
+    }
+}

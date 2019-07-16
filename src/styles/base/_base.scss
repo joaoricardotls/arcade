@@ -1,0 +1,243 @@
+@import "./mixins";
+@import "./typography";
+@import "./utilities";
+
+// BASE STYLES
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: $font-primary;
+}
+
+// BASE LAYOUT
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: hidden;
+}
+
+.navigation {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
+    overflow: hidden;
+    z-index: 100;
+    box-shadow: 0.8rem 0 1rem rgba(black, 0.6);
+
+    @include respond(1000) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3rem;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        transition: all 0.3s ease;
+        box-shadow: 0 0.8rem 1rem rgba(black, 0.6);
+    }
+
+    &--drop {
+        @include respond(1000) {
+            height: 15rem;
+        }
+
+        @include respond(600) {
+            height: 25rem;
+        }
+
+        @include respond(400) {
+            height: 50rem;
+        }
+    }
+
+    &__item {
+        text-transform: uppercase;
+        margin: 1rem;
+        width: 15rem;
+        text-decoration: none;
+        color: black;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+
+        &:link,
+        &:visited {
+            transition: background-color 0.2s ease;
+        }
+
+        &:hover {
+            background-color: red;
+        }
+
+        &:active {
+
+        }
+
+        @include respond(1000) {
+            transform: translateY(-15rem);
+            opacity: 0;
+        }
+
+        &--drop {
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            @include respond(1000) {
+                transform: translateY(0) !important;
+                opacity: 1 !important;
+            }
+        }
+    }
+}
+
+
+
+.screen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include respond(1000) {
+        margin-top: 3rem;
+    }
+}
+
+.game {
+    width: 100%;
+    height: 100%;
+    padding: 10rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+    @include respond(1000) {
+        padding: 0;
+    }
+}
+
+.form {
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    margin: 1rem;
+
+    &__formbox {
+        display: flex;
+        flex-flow: row nowrap;
+        margin: 1rem 0;
+    }
+
+    & fieldset {
+        border: none;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem;
+
+        & > label {
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__text-input {
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.minesweeper,
+.memory-game,
+.hangman,
+.hangman__gamescreen,
+.title-screen,
+.connect4,
+.scratch {
+    width: 100%;
+    height: 100%;
+    border-radius: 3rem;
+}
+
+
+
+
+.title-screen {
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    text-align: center;
+}
+
+
+//OTHER BASE STYLES
+
+.button {
+    @include button(rgb(142, 236, 130), rgb(119, 158, 111));
+    font-size: 2rem;
+    margin: 1rem;
+    width: 100%;
+
+    &--anchor {
+        text-decoration: none;
+        color: rgb(4, 14, 4);
+        text-align: center;
+    }
+}
+
+.button--grey {
+    @include button(rgb(226, 226, 226), rgb(128, 128, 128));
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+.button--letter {
+    @include button(rgb(226, 226, 226), rgb(128, 128, 128));
+    font-size: 1.3rem;
+    height: 3rem;
+    margin: 0.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}

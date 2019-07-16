@@ -1,0 +1,236 @@
+@keyframes pulse {
+    0% {
+        transform: scale(1)
+    }
+
+    50% {
+        transform: scale(1.3)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+@keyframes pulse2 {
+    0% {
+        transform: scale(1)
+    }
+
+    50% {
+        transform: scale(1.3)
+    }
+
+    100% {
+        transform: scale(0.7)
+    }
+}
+
+
+
+.hangman {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    text-align: center;
+    background-image: linear-gradient(to bottom,
+            rgb(173, 173, 253),
+            rgb(67, 67, 194));
+
+    &__endscreen {
+        justify-content: center;
+    }
+
+    &__title {
+        font-size: 3.3rem;
+        margin-top: 7rem;
+    }
+
+    &__subtitle {
+        font-size: 1.8rem;
+        margin-top: 10rem;
+        width: 60%;
+    }
+
+    &__form {
+        flex: 1;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__formbox {
+        display: flex;
+        flex-flow: row nowrap;
+
+        & fieldset {
+            border: none;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            position: relative;
+
+            &:not(:last-child) {
+                margin-right: 7rem;
+            }
+
+            ;
+        }
+
+        & label {
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+
+            &>span {
+                display: block;
+            }
+        }
+    }
+
+    &__warning {
+        position: absolute;
+        top: 50%;
+        left: 220%;
+        transform: translate(-50%, -50%);
+        font-size: 1.2rem;
+        width: 18rem;
+        text-align: center;
+        background-image: linear-gradient(to bottom,
+                rgb(255, 191, 191),
+                rgb(255, 101, 101));
+        padding: 1rem;
+        border: 2px solid pink;
+        border-radius: 2rem;
+        box-shadow: 0 0.6rem 1rem rgba(black, 0.4);
+    }
+
+    &__checkbox {
+        width: 3rem;
+        height: 3rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+    }
+
+    &__checkbox-hack {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        border: 2px solid rgb(25, 25, 44);
+        position: relative;
+        box-shadow: 0 0.4rem 0.5rem rgba(black, 0.4);
+        transition: all 0.2s ease;
+
+        &--unchecked {
+            background-color: rgba(black, 0.2);
+            animation: pulse2 0.2s ease forwards;
+        }
+
+        &--checked {
+            background-color: green;
+            animation: pulse 0.2s ease;
+        }
+    }
+
+    &__input {
+        width: 10rem;
+        height: 3rem;
+        text-align: center;
+        padding: 0.3rem;
+        border-radius: 0.6rem;
+        border: 2px solid rgb(25, 25, 44);
+        background-color: rgb(246, 246, 255);
+        transition: all 0.2s ease;
+
+        &--valid {
+            box-shadow: 0 0.7rem 1rem rgba(green, 0.6);
+            border: 2px solid rgb(0, 70, 0);
+        }
+
+        &--invalid {
+            box-shadow: 0 0.7rem 1rem rgba(red, 0.6);
+            border: 2px solid rgb(138, 0, 0);
+        }
+
+        &--disabled {
+            background-color: rgba(black, 0.2) !important;
+            box-shadow: 0 0.4rem 0.5rem rgba(black, 0.4) !important;
+            border: 2px solid rgb(25, 25, 44) !important;
+            transform: scale(0.8)
+        }
+    }
+
+    &__button {
+        @include button(rgb(255, 255, 183), rgb(255, 255, 67));
+        padding: 0.8rem 1.5rem;
+        font-size: 2.5rem;
+        margin-top: 5rem;
+
+        &--restart {
+            margin-top: 10rem;
+        }
+    }
+
+    &__lives {
+        text-align: center;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5rem;
+
+        &>span {
+            font-size: 2rem;
+            margin: 0 0 -0.2rem 0.6rem;
+        }
+    }
+
+    &__word {
+        flex: 1;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    &__letter {
+        user-select: none;
+        font-size: 3rem;
+        margin: 0.2rem;
+        border-bottom: 3px solid transparent;
+        width: 2rem;
+
+        &--hidden {
+            color: transparent;
+            border-bottom: 3px solid black;
+        }
+
+        ;
+    }
+
+    &__buttons {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 5rem;
+        width: 80%;
+    }
+
+    &__letter-button {
+        @include button(white, yellow);
+        margin: 0.2rem;
+        padding: 0.6rem 1rem;
+
+        &--guessed {
+            @include button(rgb(253, 144, 144), rgb(226, 39, 39));
+            margin: 0.2rem;
+            padding: 0.6rem 1rem;
+        }
+    }
+}

@@ -1,0 +1,36 @@
+// MIXINS
+
+@mixin button($bgcolor1: white, $bgcolor2: white, $padding: 1rem 1.5rem) {
+    border: none;
+    outline: none;
+    padding: $padding;
+    border-radius: 0.8rem;
+    box-shadow: 0 0.3rem 0.4rem rgba(black, 0.7);
+    background-image: linear-gradient(to bottom,
+            $bgcolor1,
+            $bgcolor2);
+
+    &::-moz-focus-inner {
+        border: none;
+    }
+
+    &:hover {
+        background-image: linear-gradient(to bottom,
+                lighten($bgcolor1, 3%),
+                lighten($bgcolor2, 3%));
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 0.7rem rgba(black, 0.6);
+    }
+
+    &:active {
+        background-image: linear-gradient(to bottom,
+                lighten($bgcolor1, 5%),
+                lighten($bgcolor2, 5%));
+        transform: translateY(-1px);
+        box-shadow: 0 0.3rem 0.5rem rgba(black, 0.7);
+    }
+}
+
+@mixin border-debug($color: black) {
+    border: 1px solid $color;
+}

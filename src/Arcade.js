@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { TicTacToe } from "./tic-tac-toe/TicTacToe";
 import { Hangman } from "./hangman/Hangman";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
@@ -9,6 +9,8 @@ import { MineSweeper } from "./minesweeper/MineSweeper";
 import { Checkers } from "./checkers/Checkers";
 
 export function Arcade() {
+
+    const [dropMenu, setDropMenu] = useState(false);
 
     const sections = [
         {text: "Arcade", path: "home", component: TitleScreen},
@@ -25,33 +27,18 @@ export function Arcade() {
         <BrowserRouter>
         <div className="container">
 
-            <div className="menu">
-            {
-                sections.map( (section) =>
+            <NavigationMenu sections={ sections }/>
 
+            <div className="screen">
+            {
+                sections.map( (section) => 
                     <>
-                    <NavLink key={ section.path } to={ `/${section.path}` }
-                        className="button button--anchor">
-                            { section.text }
-                    </NavLink>
+                    <Route component={ section.component }
+                           path={ `/${section.path}` }
+                           key={ section.path.concat(section.path) }/>
                     </>
                 )
             }
-            </div>
-
-            <div className="screen">
-                <div className="game">
-                {
-                    sections.map( (section) => 
-
-                        <>
-                        <Route component={ section.component }
-                               path={ `/${section.path}` }
-                               key={ section.path.concat(section.path) }/>
-                        </>
-                    )
-                }
-                </div>
             </div>
 
         </div>
@@ -68,3 +55,32 @@ export function TitleScreen(props) {
     
     </>);
 };
+
+
+
+
+
+export function NavigationMenu(props) {
+
+    const [dropMenu, setDropMenu] = useState(false);
+
+    const handleDropMenu = (event) => {
+        event.preventDefault();
+        setDropMenu(value => !value);
+    };
+
+    return (
+        <nav className={`navigation${dropMenu ? " navigation--drop" : ""}`}
+             onClick={ (e) => handleDropMenu(e) }>
+            {
+                props.sections.map( (section) =>
+            
+                    <NavLink key={ section.path } to={ `/${section.path}` }
+                             className={`navigation__item${dropMenu ? " navigation__item--drop" : ""}`}>
+                             { section.text }
+                    </NavLink>
+                )
+            }
+        </nav>
+    )
+}

@@ -39,29 +39,27 @@ export function MemoryGame() {
 
         return (<>
 
-            <div className="memory-game">
+            <div className="game">
 
-                <h1 className="memory-game__title">Memory Game</h1>
+                <h2 className="title">Memory Game</h2>
 
-                <div className="memory-game__subtitle">
-                    Select game difficulty and search for the matching cards!
-                </div>
+                <p className="subtitle">
+                    <span>Select game difficulty and search for the matching cards!</span>
+                    <span>Try to beat your friend's score!</span>
+                </p>
 
-                <div className="memory-game__subtitle">
-                    Try to beat your friend's score!
-                </div>
-
-                <form className="memory-game__form" 
+                <form className="form" 
                     onSubmit={ (event) => handleGameStart(event) }>
 
                     <select onChange={ (event) => handleChange(event.target.value) }
-                        value={ difficulty } >
+                        value={ difficulty }
+                        className="form__select">
                             <option value={120}>Easy</option>
                             <option value={80}>Normal</option>
                             <option value={60}>Hard</option>
                     </select>
 
-                    <button className="button--grey" type="submit">
+                    <button className="form__button" type="submit">
                         Start!
                     </button>
 

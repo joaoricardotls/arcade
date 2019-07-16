@@ -4,7 +4,18 @@ import { CheckersPiece } from "./CheckersPiece";
 export function Tile(props) {
 
     const getClassName = () => {
-        return `checkers__tile checkers__tile--${props.blackTile ? "black" : "white"}`
+        let style = "checkers__tile";
+        if (props.blackTile) {
+            style += " checkers__tile--black";
+        } else {
+            style += " checkers__tile--white"
+        }
+        if (props.selected) {
+            style += " checkers__tile--selected"
+        } else if (props.possibleMovement) {
+            style += " checkers__tile--possible"
+        }
+        return style;
     };
 
     return (
