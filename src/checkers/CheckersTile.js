@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckersPiece } from "./CheckersPiece";
 
-export function Tile(props) {
+export function CheckersTile(props) {
 
     const getClassName = () => {
         let style = "checkers__tile";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CheckersMatch } from "./CheckersMatch";
 
-export function Checkers(props) {
+export function Checkers() {
 
     const [newGame, setNewGame] = useState({
         start: false,

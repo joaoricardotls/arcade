@@ -19,24 +19,24 @@ export function Mine(props) {
     };
 
     const getCSSClasses = () => {
-        let newStyle = "minesweeper__mine";
+        let newStyle = "mine";
         if (props.hidden) {
-            newStyle += " minesweeper__mine--hidden";
+            newStyle += " mine--hidden";
             if (props.status === 1) {
-                newStyle += " minesweeper__mine--flag";
+                newStyle += " mine--flag";
             } else if (props.status === 2) {
-                newStyle += " minesweeper__mine--question";
+                newStyle += " mine--question";
             };
         } else if (props.mine) {
             if (props.status === 3) {
-                newStyle += " minesweeper__mine--flag";
+                newStyle += " mine--flag";
             } else {
-                newStyle += " minesweeper__mine--exploded";
+                newStyle += " mine--exploded";
             };
         } else if (props.neighbourMines === 0) {
-            newStyle += " minesweeper__mine--empty"
+            newStyle += " mine--empty"
         } else {
-            newStyle += " minesweeper__mine--visible";
+            newStyle += " mine--visible";
         };
         return newStyle;
     };

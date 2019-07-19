@@ -7,6 +7,8 @@ import { ScratchComponent } from "./scratch/ScratchComponent";
 import { ConnectFour } from "./connect-four/ConnectFour";
 import { MineSweeper } from "./minesweeper/MineSweeper";
 import { Checkers } from "./checkers/Checkers";
+import { Chess } from "./chess/Chess";
+import { Monopoly } from "./monopoly/Monopoly";
 
 export function Arcade() {
 
@@ -20,6 +22,8 @@ export function Arcade() {
         {text: "Hangman", path: "hangman", component: Hangman},
         {text: "Connect Four", path: "connect-four", component: ConnectFour},
         {text: "Checkers", path: "checkers", component: Checkers},
+        {text: "Chess", path: "chess", component: Chess},
+        {text: "Monopoly", path: "monopoly", component: Monopoly},
         {text: "Scratch", path: "scratch", component: ScratchComponent}
     ];
 
@@ -76,7 +80,7 @@ export function NavigationMenu(props) {
                 props.sections.map( (section) =>
             
                     <NavLink key={ section.path } to={ `/${section.path}` }
-                             className={`navigation__item${dropMenu ? " navigation__item--drop" : ""}`}>
+                             className={"navigation__item"}>
                              { section.text }
                     </NavLink>
                 )

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { CheckersTile } from "./CheckersTile"
+import { ChessTile } from "./ChessTile"
+import { ChessScore } from "./ChessScore";
 import { generateId } from "../utilities/utilities";
-import { CheckersScore } from "./CheckersScore";
 
-export function CheckersMatch(props) {
+export function ChessMatch(props) {
 
     const [gameEnd, setGameEnd] = useState({end: false, winner: undefined});
 
@@ -21,11 +21,7 @@ export function CheckersMatch(props) {
 
     const [pieceSelected, setPieceSelected] = useState(undefined);
 
-    const [mandatoryMovements, setMandatoryMovements] = useState([]);
-
     const [possibleMovements, setPossibleMovements] = useState([])
-
-
 
 
     useEffect(() => {
@@ -40,7 +36,6 @@ export function CheckersMatch(props) {
                     id: generateId(),
                     selected: false,
                     possibleMovement: false,
-                    mandatoryMovement: false,
                     pieceToBeCaptured: false
                 };
                 if (blankSpace) {
@@ -56,7 +51,6 @@ export function CheckersMatch(props) {
                 if (newField[col][row].blackTile) {
                     newField[col][row].occupied = {
                         player: 1,
-                        queen: false,
                         id: `tile_${generateId()}`
                     };
                 };
@@ -65,7 +59,6 @@ export function CheckersMatch(props) {
                 if (newField[col][row].blackTile) {
                     newField[col][row].occupied = {
                         player: 2,
-                        queen: false,
                         id: `tile_${generateId()}`
                     };
                 };
@@ -119,7 +112,6 @@ export function CheckersMatch(props) {
             let [newMandatory, newMovements] = getPossibleMovements(newField, currentPlayer);
             console.log(newMandatory);
             console.log(newMovements);
-            setMandatoryMovements(newMandatory);
             setPossibleMovements(newMovements);
         };
     }, [field]);
@@ -278,151 +270,77 @@ export function CheckersMatch(props) {
         if (!actionsBlocked) {
             let [col, row] = [...index],
                 newField = { ...field };
-            if (mandatoryMovements.length > 0) {
-                if (pieceSelected === undefined) {
-                    let hasSelected = false;
-                    mandatoryMovements.forEach( array => {
-                        let [c, r] = [ ...array[0] ];
-                        if (col === c && row === r) {
-                            let [c1, r1] = [ ...array[1] ];
-                            let [c2, r2] = [ ...array[2] ];
-                            newField[c][r].selected = true;
-                            newField[c1][r1].pieceToBeCaptured = true;
-                            newField[c2][r2].mandatoryMovement = true;
-                            hasSelected = true;
-                        };
-                    });
-                    if (hasSelected) {
-                        setField(newField);
-                        setPieceSelected([col, row]);
-                    };
-                } else if (col === pieceSelected[0] && row === pieceSelected[1]) {
-                    mandatoryMovements.forEach(array => {
-                        let [c, r] = [...array[0]];
-                        if (col === c && row === r) {
-                            let [c1, r1] = [...array[1]];
-                            let [c2, r2] = [...array[2]];
-                            newField[c][r].selected = false;
-                            newField[c1][r1].pieceToBeCaptured = false;
-                            newField[c2][r2].mandatoryMovement = false;
-                        };
-                    });
-                    setField(newField);
-                    setPieceSelected(undefined);
-                } else if (newField[col][row].mandatoryMovement) {
-                    let [sc, sr] = [...pieceSelected];
-                    newField[sc][sr].selected = false;
-                    mandatoryMovements.forEach(array => {
-                        let [c0, r0] = [...array[0]],
-                            [c1, r1] = [...array[1]],
-                            [c2, r2] = [...array[2]];
-                        if (sc === c0 && sr === r0) {
-                            newField[c1][r1].pieceToBeCaptured = false;
-                            newField[c2][r2].mandatoryMovement = false;
-                            if (col === c2 && row === r2) {
-                                let movingPiece = { ...newField[sc][sr].occupied };
-                                newField[c2][r2].occupied = movingPiece;
-                                newField[sc][sr].occupied = undefined;
-                                newField[c1][r1].occupied = undefined;
-                            };
-                        };
-                    });
-                    let newMandatory = getPossibleMovements(newField, currentPlayer)[0],
-                        sameTileMandatoryList = [];
-                    newMandatory.forEach( array => {
-                        let [c0, r0] = [...array[0]];
-                        if (col === c0 && row === r0) {
-                            sameTileMandatoryList.push(array)
-                        };
-                    });
-                    if (sameTileMandatoryList.length > 0) {
-                        newField[col][row].selected = true;
-                        sameTileMandatoryList.forEach( array => {
-                            let [c1, r1] = [ ...array[1] ],
-                                [c2, r2] = [ ...array[2] ];
-                            newField[c1][r1].pieceToBeCaptured = true;
-                            newField[c2][r2].mandatoryMovement = true;
-                        });
-                        setField(newField);
-                        setPieceSelected([col, row]);
-                    } else {
-                        setField(newField);
-                        setPieceSelected(undefined);
-                        setCurrentPlayer(player => player === 1 ? 2 : 1);
-                    };
-                };
-            } else {
-                if (pieceSelected === undefined) {
-                    if (newField[col][row].occupied !== undefined &&
-                        newField[col][row].occupied.player === currentPlayer) {
-                        let flag = false;
-                        possibleMovements.forEach( array => {
-                            let [c1, r1] = [ ...array[0] ];
-                            let [c2, r2] = [ ...array[1] ];
-                            if (col === c1 && row === r1) {
-                                newField[c2][r2].possibleMovement = true;
-                                flag = true;
-                            };
-                        });
-                        if (flag) {
-                            newField[col][row].selected = true;
-                            setField(newField);
-                            setPieceSelected([col, row]);
-                        };
-                    };
-                } else if (col === pieceSelected[0] && row === pieceSelected[1]) {
+            
+            if (pieceSelected === undefined) {
+                if (newField[col][row].occupied !== undefined &&
+                    newField[col][row].occupied.player === currentPlayer) {
+                    let flag = false;
                     possibleMovements.forEach( array => {
-                        let [c1, r1] = [...array[0]];
-                        let [c2, r2] = [...array[1]];
+                        let [c1, r1] = [ ...array[0] ];
+                        let [c2, r2] = [ ...array[1] ];
                         if (col === c1 && row === r1) {
-                            newField[c2][r2].possibleMovement = false;
+                            newField[c2][r2].possibleMovement = true;
+                            flag = true;
                         };
                     });
-                    newField[col][row].selected = false;
-                    setField(newField);
-                    setPieceSelected(undefined);
-                } else if (newField[col][row].possibleMovement) {
-                    let [sc, sr] = [ ...pieceSelected ];
-                    newField[sc][sr].selected = false;
-                    possibleMovements.forEach(array => {
-                        let [c1, r1] = [...array[0]];
-                        let [c2, r2] = [...array[1]];
-                        if (sc === c1 && sr === r1) {
-                            newField[c2][r2].possibleMovement = false
-                            if (col === c2 && row === r2) {
-                                let movingPiece = { ...newField[sc][sr].occupied };
-                                newField[c2][r2].occupied = movingPiece;
-                                newField[sc][sr].occupied = undefined;
-                            };
-                        };
-                    });
-                    setField(newField);
-                    setPieceSelected(undefined);
-                    setCurrentPlayer(player => player === 1 ? 2 : 1);
+                    if (flag) {
+                        newField[col][row].selected = true;
+                        setField(newField);
+                        setPieceSelected([col, row]);
+                    };
                 };
+            } else if (col === pieceSelected[0] && row === pieceSelected[1]) {
+                possibleMovements.forEach( array => {
+                    let [c1, r1] = [...array[0]];
+                    let [c2, r2] = [...array[1]];
+                    if (col === c1 && row === r1) {
+                        newField[c2][r2].possibleMovement = false;
+                    };
+                });
+                newField[col][row].selected = false;
+                setField(newField);
+                setPieceSelected(undefined);
+            } else if (newField[col][row].possibleMovement) {
+                let [sc, sr] = [ ...pieceSelected ];
+                newField[sc][sr].selected = false;
+                possibleMovements.forEach(array => {
+                    let [c1, r1] = [...array[0]];
+                    let [c2, r2] = [...array[1]];
+                    if (sc === c1 && sr === r1) {
+                        newField[c2][r2].possibleMovement = false
+                        if (col === c2 && row === r2) {
+                            let movingPiece = { ...newField[sc][sr].occupied };
+                            newField[c2][r2].occupied = movingPiece;
+                            newField[sc][sr].occupied = undefined;
+                        };
+                    };
+                });
+                setField(newField);
+                setPieceSelected(undefined);
+                setCurrentPlayer(player => player === 1 ? 2 : 1);
             };
         };
     };
 
     return (
-        <div className="game checkers">
+        <div className="game chess">
 
-            <CheckersScore player1={ props.player1 }
+            <ChessScore player1={ props.player1 }
                            player2={ props.player2 }
                            { ...score }/>
 
-            <div className="checkers__frame">
+            <div className="chess__frame">
             {
                 Object.keys(field).map( column =>
 
-                    <div className="checkers__column"
+                    <div className="chess__column"
                          key={ column.toString() }>
                     {
                         Object.keys(field[column]).map( tile =>
                             
-                                <CheckersTile { ...field[column][tile] }
-                                              key={ field[column][tile].id }
-                                              handleClick={ handleClick }/>
+                                <ChessTile { ...field[column][tile] }
+                                      key={ field[column][tile].id }
+                                      handleClick={ handleClick }/>
                         )
                     }
                     </div>

@@ -47,18 +47,24 @@ export function MineSweeper(props) {
         setNewGame(true);
     }
 
+    const handleRestart = () => {
+        setNewGame(false);
+        setDifficulty("normal");
+    }
+
     if (newGame) {
 
-        return <MineSweeperMatch { ...difficultyObject }/>
+        return <MineSweeperMatch restart={ handleRestart }
+                                 { ...difficultyObject }/>
     
     } else {
 
         return (<>
-            <div className="minesweeper">
+            <div className="game minesweeper">
 
-                <h2 className="minesweeper__title">MINESWEEPER GAME</h2>
+                <h2 className="title">MINESWEEPER GAME</h2>
 
-                <div className="minesweeper__subtitle">
+                <div className="subtitle">
                     <span>Search for the mines and watch your step!</span>
                     <span>How fast can you find them all?</span>
                 </div>
@@ -79,7 +85,7 @@ export function MineSweeper(props) {
                     </div>
                 </div>
 
-                <button className="minesweeper__button"
+                <button className="form__button"
                     onClick={ (e) => handleStart(e) }>
                     Start Game
                 </button>

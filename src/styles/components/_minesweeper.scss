@@ -2,10 +2,6 @@
     background-image: linear-gradient(to bottom,
             rgb(236, 236, 236),
             rgb(151, 151, 151));
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
     position: relative;
 
     &__helpscreen {
@@ -78,57 +74,53 @@
 
     &__timer {}
 
-    &__gamescreen {
-        flex: 1;
+    &__frame {
         display: flex;
         flex-flow: row nowrap;
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding: 1rem;
+        padding: 0.5rem;
         background-color: rgba(255, 250, 250, 0.767);
+        border: 3px solid rgb(185, 185, 185);
     }
 
     &__column {}
+}
 
-    &__mine {
-        width: 2rem;
-        height: 2rem;
-        border: 1px solid black;
-        margin: 0.2rem;
-        border-radius: 0.3rem;
-        user-select: none;
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
+.mine {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid black;
+    margin: 0.2rem;
+    border-radius: 0.3rem;
+    user-select: none;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 
-        &--exploded {
-            background-color: red;
-        }
+    &--exploded {
+        background-color: red;
+    }
 
-        &--hidden {
-            background-color: rgb(92, 92, 92);
-        }
+    &--hidden {
+        background-color: rgb(92, 92, 92);
+    }
 
-        &--visible {
-            background-color: white;
-        }
+    &--visible {
+        background-color: white;
+    }
 
-        &--empty {
-            opacity: 0;
-        }
+    &--empty {
+        opacity: 0;
+    }
 
-        &--flag {
-            background-color: green;
-        }
+    &--flag {
+        background-color: green;
+    }
 
-        &--question {
-            background-color: yellow;
-        }
-
-        &--defeat {}
-
-        &--victory {}
+    &--question {
+        background-color: yellow;
     }
 }

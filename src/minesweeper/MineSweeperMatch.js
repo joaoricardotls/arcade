@@ -332,15 +332,15 @@ export function MineSweeperMatch(props) {
             };
         };
     };
-    
-    const handleReset = (event) => {
-        event.preventDefault();
-        return null;
-    };
 
     const handleExit = (event) => {
         event.preventDefault();
-        return null;
+        if (!actionsBlocked) {
+            let confirm = window.confirm("Are you sure you want to leave the game?");
+            if (confirm) {
+                props.restart();
+            };
+        };
     };
 
 
@@ -355,23 +355,23 @@ export function MineSweeperMatch(props) {
 
             
 
-            <div className="minesweeper">
+            <div className="game minesweeper">
                 {
                     helpScreen &&
                     <div className="minesweeper__helpscreen">
-                        <h2 className="minesweeper__title">
+                        <h2 className="title">
                             CONTROLS
                         </h2>
-                        <div className="minesweeper__subtitle">
+                        <div className="subtitle">
                             Left Mouse Click: Reveal mine field
                         </div>
-                        <div className="minesweeper__subtitle">
+                        <div className="subtitle">
                             CTRL Key + Left Mouse Click: Reveal surrounding mine fields if all neighbouring mines are saved
                         </div>
-                        <div className="minesweeper__subtitle">
+                        <div className="subtitle">
                             Left Mouse Click: Toggles flag or question mark on mine field
                         </div>
-                        <button className="minesweeper__button"
+                        <button className="form__button"
                                 onClick={ () => handleHelpScreen() }>
                             Return
                         </button>
@@ -396,10 +396,6 @@ export function MineSweeperMatch(props) {
                         <span>01h 00m 00s</span>
                     </div>
                     <button className="minesweeper__nav-button"
-                            onClick={ (e) => handleReset(e) }>
-                        Reset
-                    </button>
-                    <button className="minesweeper__nav-button"
                             onClick={ (e) => handleExit(e) }>
                         Exit
                     </button>
@@ -409,7 +405,7 @@ export function MineSweeperMatch(props) {
                     </button>
                 </nav>
 
-                <div className="minesweeper__gamescreen"
+                <div className="minesweeper__frame"
                      onContextMenu={ (e) => e.preventDefault() }>
                 {
                     Object.keys(minesObject).map( colKey =>
@@ -437,7 +433,7 @@ export function MineSweeperMatch(props) {
     } else {
 
         return (<>
-            <div className="minesweeper">
+            <div className="game minesweeper">
                 GAME END
             </div>
         </>);

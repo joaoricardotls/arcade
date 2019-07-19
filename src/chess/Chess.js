@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { CheckersMatch } from "./CheckersMatch";
+import { ChessMatch } from "./ChessMatch";
 
-export function Checkers(props) {
+export function Chess(props) {
 
     const [newGame, setNewGame] = useState({
         start: false,
@@ -50,18 +50,18 @@ export function Checkers(props) {
     
     if (newGame.start) {
 
-        return <CheckersMatch restart={ handleRestart }
-                               { ...newGame.players }/>
+        return <ChessMatch restart={ handleRestart }
+                           { ...newGame.players }/>
 
     } else {
 
         return (
-            <div className="game checkers">
+            <div className="game chess">
 
-                <h2 className="title">Checkers Game</h2>
+                <h2 className="title">Chess Game</h2>
 
                 <p className="subtitle">
-                    Plan you strategy and eat all your opponent's tokens in this checkers game!
+                    Will you be the king in this exciting chess game?
                 </p>
 
                 <form className="form" onSubmit={ (e) => handleSubmit(e) }>
