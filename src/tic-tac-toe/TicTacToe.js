@@ -77,6 +77,7 @@ export function TicTacToe(props) {
                             <input onChange={ (e) => handlePlayer1NameChange(e) }
                                    className="form__text-input"
                                    type="text" id="player1"
+                                   value={ player1InputValue.toUpperCase() }
                                    placeholder="Player 1"/>
                         </fieldset>
 
@@ -84,6 +85,7 @@ export function TicTacToe(props) {
                             <label>Player 2</label>
                             <input onChange={ (e) => handlePlayer2NameChange(e) }
                                    className="form__text-input"
+                                   value={ player2InputValue.toUpperCase() }
                                    type="text" id="player2"
                                    placeholder="Player 2"/>
                         </fieldset>
