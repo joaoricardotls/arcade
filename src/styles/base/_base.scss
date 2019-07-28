@@ -81,6 +81,7 @@ body {
         color: black;
         transition: all 0.2s ease;
         padding: 1.5rem 2rem;
+        outline: none;
         
 
         @include respond(1000) {
@@ -143,6 +144,25 @@ body {
         margin: 1rem 0;
     }
 
+    &__difficulty-box {
+        display: flex;
+        flex-flow: row nowrap;
+
+        & > *:not(:last-child) {
+            margin-right: 5rem;
+        }
+    }
+
+    &__difficulty-info {
+
+        & > *:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+
+    }
+
+
+
     & fieldset,
     &__fieldset {
         border: none;
@@ -164,10 +184,11 @@ body {
         text-transform: uppercase;
         border: 2px solid rgb(153, 153, 153);
         border-radius: 1rem;
+        box-shadow: 0 0.4rem 0.4rem rgba(black, 0.4);
     }
 
     &__button {
-        margin-top: 5rem;
+        margin: 5rem 1rem 1rem 1rem;
         padding: 0.7rem 1.7rem;
         font-size: 1.8rem;
         text-align: center;
@@ -206,7 +227,25 @@ body {
     }
 }
 
+.score {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 
+    & > div:first-child {
+        border-bottom: 1px solid currentColor;
+    }
+
+    & > div {
+        font-size: 1.8rem;
+    }
+
+    & > div:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+}
 
 
 

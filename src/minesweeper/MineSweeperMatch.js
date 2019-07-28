@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { generateId, getRandomInt } from "../utilities/utilities";
 import { Mine } from "./Mine";
+import { Timer } from "./Timer";
 
 export function MineSweeperMatch(props) {
 
@@ -382,11 +383,9 @@ export function MineSweeperMatch(props) {
                         <h4>MINES FOUND:</h4>
                         <span>{ `${minesFound} / ${props.mines}` }</span>
                     </div>
-                    <div className="minesweeper__timer">
-                        <h4>TIME ELAPSED:</h4>
-                        <span>01h 00m 00s</span>
-                        
-                    </div>
+                    
+                    <Timer/>
+
                     <div className="minesweeper__navitem">
                         <h4>DIFFICULTY:</h4>
                         <span>{`${props.difficulty.toUpperCase()}`}</span>

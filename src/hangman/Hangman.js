@@ -103,7 +103,7 @@ export function Hangman(props) {
                                onChange={ () => handleCheckboxChange() }/>
                             </div>
                         </fieldset>
-                        <fieldset>
+                        <fieldset onClick={ () => setRandomWordCheck(false) }>
                             <label><span>Play with</span><span>secret word</span></label>
                             <input type="password"
                                value={ randomWordCheck ? "" : wordInput }

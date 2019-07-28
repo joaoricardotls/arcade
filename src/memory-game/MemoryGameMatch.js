@@ -44,6 +44,9 @@ export function MemoryGameMatch(props) {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
     ];
 
+    // FETCH CARDS /////////////////////
+    const [fetchedCards, setFetchedCards] = useState([]);
+
 
     // SET BEST TIME EFFECT
     // Listens to changes in the gameEnd state and evaluates if last match's time is lower than the best time
@@ -55,15 +58,47 @@ export function MemoryGameMatch(props) {
     }, [gameEnd, bestTime])
 
 
+
+
+
+    useEffect(() => {
+        let imagesList = [];
+        for (let i = 0; i < 12; i ++) {
+            fetch("https://picsum.photos/100/150")
+                .then(response => imagesList.push(response.url))
+        };
+        setTimeout(() => {
+            setFetchedCards(imagesList);
+        }, 500);
+    }, [])
+
+
+    
+
+
+
+
+
+
+
+
+
     // GENERATE CARDS EFFECT
     // On mount, generate an array of objects (for each card and it's pair) with unique IDs
     useEffect(() => {
-        let cardsArray1 = createCardsArray(),
-            cardsArray2 = createCardsArray(),
-            newGameCards = cardsArray1.concat(cardsArray2);
-        newGameCards = shuffleArray(newGameCards);
-        setCards(newGameCards);
-    }, []);
+
+
+        // the assembling will happen when the cards are fetched, not on mount
+
+        if (fetchedCards.length > 0) {
+            console.log(fetchedCards);
+            let cardsArray1 = createCardsArray(),
+                cardsArray2 = createCardsArray(),
+                newGameCards = cardsArray1.concat(cardsArray2);
+            newGameCards = shuffleArray(newGameCards);
+            setCards(newGameCards);
+        };
+    }, [fetchedCards]);
 
 
     // TWO CARDS CLICKED EFFECT
@@ -104,6 +139,7 @@ export function MemoryGameMatch(props) {
                 uniqueId: generateId(),
                 pairId: i,
                 content: cardsContents[i],
+                src: fetchedCards[i],
                 backside: true,
                 disabled: false
             });
@@ -242,7 +278,7 @@ export function MemoryGameMatch(props) {
         );
 
     // If game has ended
-    } else {
+    } else if (fetchedCards.length > 0) {
 
         return (
             <div className="game">

@@ -10,8 +10,8 @@
 }
 
 .card {
-    width: 5rem;
-    height: 5rem;
+    width: 10rem;
+    height: 15rem;
     margin: 1rem;
     position: relative;
     user-select: none;
@@ -26,7 +26,6 @@
         backface-visibility: hidden;
         transition: all .3s;
         box-shadow: 0 0.5rem 1rem rgba(black, 0.3);
-        background-color: white;
         z-index: 0;
         display: flex;
         align-items: center;

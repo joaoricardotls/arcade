@@ -211,19 +211,21 @@ export function TicTacToeMatch(props) {
 
                 <div className="subtitle">{ getWinner(gameEnd.winner) }</div>
 
-                <div>
-                    <div>SCORE</div>
+                <div className="score">
+                    <div className="subtitle">SCORE</div>
                     <div>{`${props.player1.toUpperCase()}: ${score[1]}`}</div>
                     <div>{`${props.player2.toUpperCase()}: ${score[2]}`}</div>
                     <div>{`DRAWS: ${score[0]}`}</div>
                 </div>
 
                 <div>
-                    <button onClick={ () => handleRematch(gameEnd.winner) }>
+                    <button className="form__button"
+                            onClick={ () => handleRematch(gameEnd.winner) }>
                         REMATCH
                     </button>
 
-                    <button onClick={ () => props.restart() }>
+                    <button className="form__button"
+                            onClick={ () => props.restart() }>
                         CHANGE PLAYERS
                     </button>
                 </div>

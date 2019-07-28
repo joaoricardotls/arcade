@@ -62,33 +62,63 @@ export function MineSweeper(props) {
         return (<>
             <div className="game minesweeper">
 
-                <h2 className="title">MINESWEEPER GAME</h2>
+                <h2 className="title">Minesweeper Game</h2>
 
                 <div className="subtitle">
                     <span>Search for the mines and watch your step!</span>
                     <span>How fast can you find them all?</span>
                 </div>
 
-                <div>
-                    <div>
-                        <label>Set Difficulty</label>
-                        <select onChange={ (e) => handleDifficultyChange(e) }
-                                value={ difficulty }>
-                                <option value={'easy'}>Easy</option>
-                                <option value={'normal'}>Normal</option>
-                                <option value={'hard'}>Hard</option>
-                        </select>
-                    </div>
+                <form onSubmit={ (e) => handleStart(e) }
+                      className="form">
 
-                    <div>
-                        INFO ON THE DIFFICULTY (name, mines, size and best time)
-                    </div>
-                </div>
+                    <div className="form__difficulty-box">
 
-                <button className="form__button"
-                    onClick={ (e) => handleStart(e) }>
-                    Start Game
-                </button>
+                        <fieldset>
+                            <label>Set Difficulty</label>
+                            <select onChange={ (e) => handleDifficultyChange(e) }
+                                    value={ difficulty }>
+                                    <option value={'easy'}>Easy</option>
+                                    <option value={'normal'}>Normal</option>
+                                    <option value={'hard'}>Hard</option>
+                            </select>
+                        </fieldset>
+
+                        <div className="form__difficulty-info">
+                            
+                            <div className="subtitle">
+                                Difficulty <span>{ difficulty.toUpperCase() }</span>
+                            </div>
+
+                            <div>
+                                Columns: { difficultyObject.columns }
+                            </div>
+
+                            <div>
+                                Rows: { difficultyObject.rows }
+                            </div>
+
+                            <div>
+                                Mines: { difficultyObject.mines }
+                            </div>
+
+                            <div>
+                                Best time: {  }
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                    
+
+                    <button className="form__button form__difficulty-button"
+                            type="submit">
+                        Start Game
+                    </button>
+
+                </form>
 
             </div>
         </>);

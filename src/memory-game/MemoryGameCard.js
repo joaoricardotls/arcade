@@ -16,7 +16,8 @@ export function MemoryGameCard(props) {
     // If card not disabled, return the card
     } else {
 
-        return (<>
+
+            return (<>
             <div onClick={ () => props.handleClick([props.uniqueId, props.pairId]) }
                  className={ `card` }>
 
@@ -24,9 +25,11 @@ export function MemoryGameCard(props) {
                     &nbsp;
                 </div>
 
-                <div className={ `card__front ${props.backside ? "rotate-180" : ""}` }>
-                    { props.content }
-                </div>
+                <img className={ `card__front ${props.backside ? "rotate-180" : ""}` }
+                     src={ props.src } alt={""}
+                     width={ 100 } height={ 150 }/>
+                    {/* { props.content }
+                </img> */}
 
             </div>
         </>);
