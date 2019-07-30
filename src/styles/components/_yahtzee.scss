@@ -1,0 +1,124 @@
+.yahtzee {
+    background-color: rgb(255, 255, 137);
+
+    &__headers {
+        flex: 1;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    &__current {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 2px solid grey;
+        padding: 1rem;
+        margin-right: 3rem;
+
+        & > h5 {
+            margin-bottom: 1.5rem;
+        }
+
+        & > div {
+            font-size: 1.8rem;
+        }
+    }
+
+    &__dice {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__players {
+        display: flex;
+        flex-flow: row nowrap;
+    }
+}
+
+.dice {
+    width: 7rem;
+    height: 7rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 4rem;
+    border: 2px solid rgb(47, 47, 47);
+    background-color: snow;
+    border-radius: 1rem;
+    margin: 1rem;
+    user-select: none;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    &:active {
+        transform: scale(1.1);
+    }
+}
+
+.player {
+    margin: 0.5rem;
+    border: 1px solid grey;
+    background-color: rgba(80, 80, 61, 0.212); 
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 22rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color: rgb(36, 36, 36);
+
+    &__name {
+        margin-bottom: 1rem;
+        padding-bottom: 0.2rem;
+        border-bottom: 2px solid rgb(95, 95, 42);
+    }
+
+    &__section, &__totals {
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+
+        & > h5 {
+            border-bottom: 1px solid black;
+            margin: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        & > div {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+
+            & > span {
+                margin: 0 0.5rem;
+                text-transform: capitalize;
+            }
+        }
+    }
+
+    &__clickable:hover {
+        background-color: snow;
+    }
+
+    &--bonus {
+        font-weight: 600;
+        font-size: 1.4rem;
+    }
+
+}

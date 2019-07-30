@@ -9,6 +9,7 @@ import { MineSweeper } from "./minesweeper/MineSweeper";
 import { Checkers } from "./checkers/Checkers";
 import { Chess } from "./chess/Chess";
 import { Monopoly } from "./monopoly/Monopoly";
+import { Yahtzee } from "./yahtzee/Yahtzee";
 
 export function Arcade() {
 
@@ -24,6 +25,7 @@ export function Arcade() {
         {text: "Checkers", path: "checkers", component: Checkers},
         {text: "Chess", path: "chess", component: Chess},
         {text: "Monopoly", path: "monopoly", component: Monopoly},
+        {text: "Yahtzee", path: "yahtzee", component: Yahtzee},
         {text: "Scratch", path: "scratch", component: ScratchComponent}
     ];
 

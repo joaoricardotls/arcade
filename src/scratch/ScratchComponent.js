@@ -13,8 +13,8 @@ export function ScratchComponent() {
     useEffect(() => {
         
         let array = [1, 4, 6, 8, 334, 56, 2, 6, 43, 56];
-        function simpleSum = {
-            
+        const simpleSum = () => {
+            return null
         }
 
     }, [userInput])

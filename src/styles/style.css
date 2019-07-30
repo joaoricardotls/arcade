@@ -1933,4 +1933,201 @@ body {
   -webkit-box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.7);
           box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.7);
 }
+
+.yahtzee {
+  background-color: #ffff89;
+}
+
+.yahtzee__headers {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.yahtzee__current {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  border: 2px solid grey;
+  padding: 1rem;
+  margin-right: 3rem;
+}
+
+.yahtzee__current > h5 {
+  margin-bottom: 1.5rem;
+}
+
+.yahtzee__current > div {
+  font-size: 1.8rem;
+}
+
+.yahtzee__dice {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.yahtzee__players {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+}
+
+.dice {
+  width: 7rem;
+  height: 7rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  font-size: 4rem;
+  border: 2px solid #2f2f2f;
+  background-color: snow;
+  border-radius: 1rem;
+  margin: 1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.dice:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.dice:active {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.player {
+  margin: 0.5rem;
+  border: 1px solid grey;
+  background-color: rgba(80, 80, 61, 0.212);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 22rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: #242424;
+}
+
+.player__name {
+  margin-bottom: 1rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid #5f5f2a;
+}
+
+.player__section, .player__totals {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+
+.player__section > h5, .player__totals > h5 {
+  border-bottom: 1px solid black;
+  margin: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.player__section > div, .player__totals > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.player__section > div > span, .player__totals > div > span {
+  margin: 0 0.5rem;
+  text-transform: capitalize;
+}
+
+.player__clickable:hover {
+  background-color: snow;
+}
+
+.player--bonus {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
 /*# sourceMappingURL=style.css.map */
